@@ -2,10 +2,7 @@ package com.shami.daniyalproject.utils
 
 import com.shami.daniyalproject.R
 import com.shami.daniyalproject.datamodels.FragmentDataModel
-import com.shami.daniyalproject.fragments.DriverProfileFragment
-import com.shami.daniyalproject.fragments.MapFragment
-import com.shami.daniyalproject.fragments.ReconizeFragment
-import com.shami.daniyalproject.fragments.StatusFragment
+import com.shami.daniyalproject.fragments.*
 
 /**
  * Created by Shami on 3/4/2018.
@@ -28,11 +25,7 @@ object menutil
 
         driverMenuList.add(FragmentDataModel("Register Student", R.drawable.register_student,ReconizeFragment.newInstance))
 
-
-        driverMenuList.add(FragmentDataModel("Current Status", R.drawable.scurrent_status,ReconizeFragment.newInstance))
-
-
-        driverMenuList.add(FragmentDataModel("Contact Parent", R.drawable.markattendance,ReconizeFragment.newInstance))
+        driverMenuList.add(FragmentDataModel("Contact Parent", R.drawable.markattendance,ContactParents.newInstance))
 
         return driverMenuList
 
@@ -53,7 +46,7 @@ object menutil
         studentMenuList.add(FragmentDataModel("Location",R.drawable.checklocation,MapFragment.newInstance))
         studentMenuList.add(FragmentDataModel("Mark Attendence",R.drawable.mark_attendance_icon,ReconizeFragment.newInstance))
         studentMenuList.add(FragmentDataModel("Driver Details",R.drawable.checkdriver,DriverProfileFragment.newInstance))
-        studentMenuList.add(FragmentDataModel("Current Status",R.drawable.scurrent_status,StatusFragment.newInstance))
+        studentMenuList.add(FragmentDataModel("Current Status",R.drawable.scurrent_status, ContactParents.newInstance))
 
         return studentMenuList
 
@@ -71,9 +64,8 @@ object menutil
         val studentMenuList=ArrayList<FragmentDataModel>()
 
         studentMenuList.add(FragmentDataModel("Location",R.drawable.checklocation,MapFragment.newInstance))
-        studentMenuList.add(FragmentDataModel("Notification",R.drawable.checknotification,MapFragment.newInstance))
+        studentMenuList.add(FragmentDataModel("Notification",R.drawable.checknotification,NotificationFragment.newInstance))
         studentMenuList.add(FragmentDataModel("Driver Details",R.drawable.checkdriver,DriverProfileFragment.newInstance))
-        studentMenuList.add(FragmentDataModel("Attendence",R.drawable.checkattendance,MapFragment.newInstance))
 
         return studentMenuList
 

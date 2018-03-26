@@ -66,12 +66,6 @@ class Register:BaseActivity<LayoutRegisterBinding>(),RegisterClickListeners {
     }
 
 
-    fun getImageUriFromBitMap(inContext: Context, inImage: Bitmap): Uri {
-        val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes)
-        val path = Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
-        return Uri.parse(path)
-    }
 
 
     override fun setLayout(): Int {
@@ -88,6 +82,7 @@ class Register:BaseActivity<LayoutRegisterBinding>(),RegisterClickListeners {
         }
 
     }
+
 
 
     fun subscribe()
@@ -128,6 +123,13 @@ class Register:BaseActivity<LayoutRegisterBinding>(),RegisterClickListeners {
 
     }
 
+
+    fun getImageUriFromBitMap(inContext: Context, inImage: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes)
+        val path = Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
+        return Uri.parse(path)
+    }
 
     fun myFile(myBitmap: Bitmap):File
     {
@@ -237,8 +239,8 @@ class Register:BaseActivity<LayoutRegisterBinding>(),RegisterClickListeners {
             cropIntent.putExtra("aspectX", 1)
             cropIntent.putExtra("aspectY", 1)
             //indicate output X and Y
-            cropIntent.putExtra("outputX", 275)
-            cropIntent.putExtra("outputY", 300)
+//            cropIntent.putExtra("outputX", 275)
+//            cropIntent.putExtra("outputY", 300)
             //retrieve data on return
             cropIntent.putExtra("return-data", true)
             //start the activity - we handle returning in onActivityResult

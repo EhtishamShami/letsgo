@@ -8,6 +8,7 @@ data class ReconizeResponse(val applicationStatusCode:Int,
                             val imageURL:String?,
                             val statusResponse:String?,
                             val applicationErrorCode:String?,
-                            val errorMessage:String?
+                            val errorMessage:String?,
+                            val user:User
                             )
 

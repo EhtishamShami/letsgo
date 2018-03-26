@@ -19,6 +19,7 @@ abstract class BaseFragment<T: ViewDataBinding>: Fragment()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view=inflater.inflate(setLayout(),container,false)
+
         return view
     }
 

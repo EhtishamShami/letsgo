@@ -11,6 +11,7 @@ import com.shami.daniyalproject.activities.BaseActivity
 import com.shami.daniyalproject.activities.mainactivity.MainActivity
 import com.shami.daniyalproject.api.pojo.response.User
 import com.shami.daniyalproject.databinding.LayoutLoginBinding
+import com.shami.daniyalproject.utils.Constant
 
 /**
  * Created by Shami on 3/3/2018.
@@ -75,6 +76,9 @@ class Login :BaseActivity<LayoutLoginBinding>(),LoginClickListeners {
             override fun onChanged(t: User?) {
             Toast.makeText(this@Login,"User Login Sucessfully",Toast.LENGTH_SHORT).show()
 
+                t?.let {
+                    Constant.currentUser=t
+                }
                 val intent=Intent(this@Login, MainActivity::class.java)
                 startActivity(intent)
 

@@ -15,7 +15,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "baseURL", "\"http://124.109.32.134:8080/face-recog-apis/\""
-
+        multiDexEnabled true
     }
     dataBinding {
         enabled = true
@@ -70,6 +70,7 @@ dependencies {
 
     implementation "io.vrinda.kotlinpermissions:kotlinpermissions:$rootProject.kotlinpermission"
 
+    implementation "com.google.android.gms:play-services-maps:$rootProject.mapsVersion"
 
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

@@ -9,6 +9,7 @@ import com.shami.daniyalproject.adapters.MenuAdaper
 import com.shami.daniyalproject.clickListeners.menuItemClickListener
 import com.shami.daniyalproject.databinding.LayoutDashboardBinding
 import com.shami.daniyalproject.datamodels.FragmentDataModel
+import com.shami.daniyalproject.utils.Constant
 import com.shami.daniyalproject.utils.menutil
 import com.shami.daniyalproject.utils.replaceFragmentInActivity
 
@@ -25,7 +26,21 @@ class DashboardFragment:BaseFragment<LayoutDashboardBinding>()
 
     override fun init(view: View, savedInstanceState: Bundle?) {
 
-        mMenuApdater= MenuAdaper(menutil.returnGenericMenu(),object:menuItemClickListener{
+        var currentMenuList=menutil.returnGenericMenu()
+        when(Constant.currentUser.userType)
+        {
+            "driver" ->
+            {
+                currentMenuList=menutil.returnDriverMenu()
+            }
+            "user" ->
+            {
+                currentMenuList=menutil.returnRidermenu()
+            }
+        }
+
+
+        mMenuApdater= MenuAdaper(currentMenuList,object:menuItemClickListener{
 
             override fun selectItem(currentItem: FragmentDataModel) {
 

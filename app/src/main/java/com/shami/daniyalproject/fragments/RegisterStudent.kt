@@ -15,10 +15,11 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.shami.daniyalproject.R
+import com.shami.daniyalproject.activities.loginregister.RegisterClickListeners
+import com.shami.daniyalproject.activities.loginregister.RegisterViewModel
 import com.shami.daniyalproject.activities.mainactivity.MainActivity
 import com.shami.daniyalproject.api.pojo.response.User
-import com.shami.daniyalproject.clickListeners.MarkAttendenceClickListener
-import com.shami.daniyalproject.databinding.LayoutReconizeBinding
+import com.shami.daniyalproject.databinding.LayoutRegisterStudentBinding
 import io.vrinda.kotlinpermissions.PermissionCallBack
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -27,19 +28,18 @@ import java.io.File
 import java.io.FileOutputStream
 
 /**
- * Created by Shami on 3/4/2018.
+ * Created by Ehitshamshami on 3/26/2018.
  */
 
-class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClickListener
+class RegisterStudent:BaseFragment<LayoutRegisterStudentBinding>(),RegisterClickListeners
 {
 
+    private lateinit var mRegisterViewModel: RegisterViewModel
 
-    lateinit var mViewModel:ReconizeFragmentViewModel
 
     //keep track of camera capture intent
     val CAMERA_CAPTURE = 1
     val PIC_CROP = 2
-
 
     //captured picture uri
     private lateinit var  picUri: Uri
@@ -49,30 +49,50 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
     private lateinit var cropedImageBitMap: Bitmap
 
 
+    private lateinit var registerViewModel:com.shami.daniyalproject.fragments.RegisterViewModel
+
 
     override fun init(view: View, savedInstanceState: Bundle?) {
 
-        mViewModel= ViewModelProviders.of(this)[ReconizeFragmentViewModel::class.java]
+        registerViewModel= ViewModelProviders.of(this@RegisterStudent)[com.shami.daniyalproject.fragments.RegisterViewModel::class.java]
+
 
         viewDataBinding.apply {
-            listeners=this@ReconizeFragment
+
+            viewmodel=registerViewModel
+            listeners=this@RegisterStudent
         }
 
-        subscribe()
 
     }
 
     override fun setLayout(): Int {
-        return R.layout.layout_reconize
+
+        return R.layout.layout_register_student
     }
+
+
+
+    override fun register(view: View) {
+
+        cropedImageBitMap?.let {
+
+            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), getRealPathFromURI(getImageUriFromBitMap((activity as MainActivity),cropedImageBitMap)))
+            mRegisterViewModel.uploadImage(requestFile,"myName.png",myFile(cropedImageBitMap))
+        }
+
+    }
+
 
 
     fun subscribe()
     {
-        val isLoading=object:Observer<Boolean>{
+
+        val showLoading=object: Observer<Boolean>
+        {
             override fun onChanged(t: Boolean?) {
 
-                t?.let {
+                t?.let{
 
                     if(t)
                     {
@@ -88,48 +108,20 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
 
         }
 
-        val user=object:Observer<User> {
+        val user= object : Observer<User> {
             override fun onChanged(t: User?) {
-
                 t?.let {
-                Toast.makeText((activity as MainActivity).applicationContext,"Reeconized",Toast.LENGTH_SHORT).show()
+                    Toast.makeText((activity as MainActivity),"Driver Registered Sucessfully", Toast.LENGTH_SHORT).show()
                 }
-
             }
-
         }
 
 
-        mViewModel.getUser().observe(this@ReconizeFragment,user)
-        mViewModel.isLoading().observe(this@ReconizeFragment,isLoading)
-
-
-
-    }
-
-
-    override fun markAttendence(view: View) {
-
-        cropedImageBitMap?.let {
-
-            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), getRealPathFromURI(getImageUriFromBitMap((activity as MainActivity),cropedImageBitMap)))
-            mViewModel.uploadImage(requestFile,"myName.png",myFile(cropedImageBitMap))
-        }
-
+        mRegisterViewModel.isLoading.observe((activity as MainActivity),showLoading)
+        mRegisterViewModel.getUser().observe((activity as MainActivity),user)
 
 
     }
-
-
-
-    companion object {
-
-        val ReconizeFragment="ReconizeFragment"
-        val newInstance=com.shami.daniyalproject.fragments.ReconizeFragment()
-
-
-    }
-
 
 
     fun getImageUriFromBitMap(inContext: Context, inImage: Bitmap): Uri {
@@ -163,7 +155,7 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
 
         if ( ContextCompat.checkSelfPermission( (activity as MainActivity), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission( (activity as MainActivity), android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission( (activity as MainActivity), android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED  ) {
 
-            (activity as MainActivity). requestPermissions(arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.READ_EXTERNAL_STORAGE,android.Manifest.permission.CAMERA), object : PermissionCallBack {
+            (activity as MainActivity).requestPermissions(arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.READ_EXTERNAL_STORAGE,android.Manifest.permission.CAMERA), object : PermissionCallBack {
                 override fun permissionGranted() {
                     super.permissionGranted()
                     takePicture()
@@ -179,6 +171,10 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
             takePicture()
 
         }
+
+
+
+
 
     }
 
@@ -220,7 +216,7 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
                 val thePic = extras.getParcelable<Bitmap>("data")
 
                 cropedImageBitMap=thePic
-                viewDataBinding.camera.setImageBitmap(thePic)
+                viewDataBinding.profilePhotoIV.setImageBitmap(thePic)
 
             }
 
@@ -253,8 +249,8 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
 
         } catch (ex: ActivityNotFoundException) {
 
-          ex.printStackTrace()
-    }
+           ex.printStackTrace()
+        }
 
 
     }
@@ -287,11 +283,18 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
     }
 
     fun getRealPathFromURI(uri: Uri): String {
-        val cursor = (activity as MainActivity).applicationContext.getContentResolver().query(uri, null, null, null, null)
+        val cursor = (activity as MainActivity).getContentResolver().query(uri, null, null, null, null)
         cursor.moveToFirst()
         val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
         return cursor.getString(idx)
     }
+
+
+    companion object {
+        val RegisterStudent="RegisterStudent"
+        val newInstance= RegisterStudent()
+    }
+
 
 
 

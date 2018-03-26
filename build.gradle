@@ -13,11 +13,13 @@ buildscript {
                 daggerVersion="2.11"
                 android_plugin_version='2.3.1'
                 kotlinpermission="1.1"
+                mapsVersion="12.0.0"
 
     }
     repositories {
         google()
         jcenter()
+        maven { url "https://maven.google.com" }
 
     }
     dependencies {
@@ -34,6 +36,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://maven.google.com" }
     }
 }
 
