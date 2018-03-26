@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+
+        <variable
+            name="viewmodel"
+            type="com.shami.daniyalproject.activities.mainactivity.MainActivityViewModel"/>
+
+
+
+        <variable
+            name="listeners"
+            type="com.shami.daniyalproject.clickListeners.InfoViewClickListeners"/>
+
+
+    </data>
+
+
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding"
+    >
+
+    <ImageView
+        android:id="@+id/driverPhotoIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/placeholderdude"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/firstnameTIL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemMargin"
+        app:layout_constraintTop_toBottomOf="@+id/driverPhotoIV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/firstnameET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Name"
+            android:text="Layla"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/lastnameTIL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemMargin"
+        app:layout_constraintTop_toBottomOf="@+id/firstnameTIL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/lastnameET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name"
+            android:text="Fijwara"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/phoneNumberTIL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/itemMargin"
+        app:layout_constraintTop_toBottomOf="@+id/lastnameTIL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/phoneNumberET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:text="03455650843"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+
+
+
+    <Button
+        style="@style/buttons"
+        android:text="Call"
+        android:onClick="@{listeners::call}"
+        android:layout_marginTop="@dimen/space"
+        app:layout_constraintTop_toBottomOf="@id/phoneNumberTIL"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+</android.support.constraint.ConstraintLayout>
+</layout>

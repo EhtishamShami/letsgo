@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+   <data>
+
+      <variable
+          name="viewmodel"
+          type="com.shami.daniyalproject.activities.loginregister.RegisterViewModel"/>
+      <variable
+          name="listeners"
+          type="com.shami.daniyalproject.activities.loginregister.RegisterClickListeners"/>
+   </data>
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<android.support.constraint.ConstraintLayout
+    android:paddingStart="@dimen/padding"
+    android:paddingEnd="@dimen/padding"
+    android:paddingTop="@dimen/space"
+    android:paddingBottom="@dimen/space"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+   <ImageView
+       android:id="@+id/profilePhotoIV"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/photo"
+       android:onClick="@{listeners::captureImage}"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent" />
+
+   <android.support.design.widget.TextInputLayout
+       android:id="@+id/firstnameTIL"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toBottomOf="@id/profilePhotoIV"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       >
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/firstnameET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="First Name"
+        android:text="@={viewmodel.firstName}"
+        />
+   </android.support.design.widget.TextInputLayout>
+
+
+
+
+   <android.support.design.widget.TextInputLayout
+       android:id="@+id/lastNameTIL"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="@dimen/itemMargin"
+       app:layout_constraintTop_toBottomOf="@+id/firstnameTIL"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       >
+
+      <android.support.design.widget.TextInputEditText
+          android:id="@+id/lastNameET"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Last Name"
+          android:text="@={viewmodel.lastName}"
+          />
+   </android.support.design.widget.TextInputLayout>
+
+   <android.support.design.widget.TextInputLayout
+       android:id="@+id/phoneNumberTIL"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="@dimen/itemMargin"
+       app:layout_constraintTop_toBottomOf="@+id/lastNameTIL"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       >
+
+      <android.support.design.widget.TextInputEditText
+          android:id="@+id/phoneNumberET"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Phone Number"
+          android:inputType="number"
+          android:text="@={viewmodel.phoneNumber}"
+          />
+   </android.support.design.widget.TextInputLayout>
+
+
+
+   <android.support.design.widget.TextInputLayout
+       android:id="@+id/emailTIL"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="@dimen/itemMargin"
+       app:layout_constraintTop_toBottomOf="@+id/phoneNumberTIL"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       >
+
+      <android.support.design.widget.TextInputEditText
+          android:id="@+id/emailET"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Email"
+          android:text="@={viewmodel.email}"
+          android:inputType="textEmailAddress"
+          />
+   </android.support.design.widget.TextInputLayout>
+
+
+   <TextView
+       android:id="@+id/selectGenderTV"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="@dimen/itemMargin"
+       app:layout_constraintTop_toBottomOf="@+id/emailTIL"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:text="Select Gender"
+       />
+
+   <RadioGroup
+       android:id="@+id/radioGroup"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="@dimen/itemMargin"
+       app:layout_constraintTop_toBottomOf="@+id/selectGenderTV"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:orientation="horizontal"
+       >
+
+      <RadioButton
+          android:id="@+id/maleRBTn"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Male"
+          android:layout_marginEnd="@dimen/space"
+          />
+
+
+      <RadioButton
+          android:id="@+id/femaleRBTn"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Female"
+          />
+
+   </RadioGroup>
+
+
+   <android.support.design.widget.TextInputLayout
+       android:id="@+id/idCardTIL"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="@dimen/itemMargin"
+       app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       >
+
+      <android.support.design.widget.TextInputEditText
+          android:id="@+id/idCardET"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="ID Card"
+          android:text="@={viewmodel.idCard}"
+          android:inputType="number"
+          />
+   </android.support.design.widget.TextInputLayout>
+
+
+   <android.support.design.widget.TextInputLayout
+       android:id="@+id/passwordTIL"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="@dimen/itemMargin"
+       app:layout_constraintTop_toBottomOf="@+id/idCardTIL"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       >
+
+      <android.support.design.widget.TextInputEditText
+          android:id="@+id/passwordET"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Password"
+          android:text="@={viewmodel.password}"
+          />
+   </android.support.design.widget.TextInputLayout>
+
+
+
+   <android.support.design.widget.TextInputLayout
+       android:id="@+id/confirmPasswordTIL"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="@dimen/itemMargin"
+       app:layout_constraintTop_toBottomOf="@+id/passwordTIL"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       >
+
+      <android.support.design.widget.TextInputEditText
+          android:id="@+id/confirmPasswordET"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="Confirm Password"
+          />
+   </android.support.design.widget.TextInputLayout>
+
+
+   <Button
+       style="@style/buttons"
+       android:text="Register"
+       android:onClick="@{listeners::register}"
+       app:layout_constraintTop_toBottomOf="@id/confirmPasswordTIL"
+       app:layout_constraintEnd_toEndOf="parent"
+       />
+</android.support.constraint.ConstraintLayout>
+</ScrollView>
+</layout>

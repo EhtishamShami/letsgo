@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.shami.daniyalproject.activities.loginregister.LoginViewModel"/>
+        <variable
+            name="listeners"
+            type="com.shami.daniyalproject.activities.loginregister.LoginClickListeners"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding"
+        android:background="@android:color/white"
+        >
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/bus_logo"
+            android:layout_marginTop="64dp"
+            />
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/usernameTIL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/itemMargin"
+            app:layout_constraintTop_toBottomOf="@id/logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <android.support.design.widget.TextInputEditText
+               android:id="@+id/usernameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.username}"
+                android:hint="Email"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/passwordTIL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space"
+            app:layout_constraintTop_toBottomOf="@+id/usernameTIL"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/passwordET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewmodel.password}"
+                android:hint="Password"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/signinBtn"
+
+            style="@style/buttons"
+            android:text="SIGN IN"
+            android:onClick="@{listeners::signIn}"
+            app:layout_constraintTop_toBottomOf="@id/passwordTIL"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            style="@style/normalText"
+            android:textSize="12sp"
+            android:onClick="@{listeners::newUser}"
+            android:text="New User?"
+            android:layout_marginTop="@dimen/space"
+            app:layout_constraintTop_toBottomOf="@id/signinBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

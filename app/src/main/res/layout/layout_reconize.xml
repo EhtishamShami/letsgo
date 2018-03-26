@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/itemMargin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/camera"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/camera"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/driverInfoView"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/driverInfoView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/path"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="@+id/placeHolderIV"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/placeHolderIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/kid"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="@dimen/itemMargin"
+        />
+
+    <TextView
+        android:id="@+id/fristNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="First Name"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginStart="@dimen/itemMargin"
+        app:layout_constraintTop_toTopOf="@id/placeHolderIV"
+        app:layout_constraintBottom_toTopOf="@+id/lastNameTV"
+        app:layout_constraintStart_toEndOf="@id/placeHolderIV"
+        app:layout_constraintVertical_chainStyle="packed"
+        />
+
+
+    <TextView
+        android:id="@+id/fristName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dan"
+        android:layout_marginStart="@dimen/itemMargin"
+        app:layout_constraintBottom_toBottomOf="@+id/fristNameTV"
+        app:layout_constraintStart_toEndOf="@+id/fristNameTV"
+        />
+
+
+
+
+    <TextView
+        android:id="@+id/lastNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Name"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="@dimen/space"
+        android:layout_marginStart="@dimen/itemMargin"
+        app:layout_constraintTop_toBottomOf="@id/fristNameTV"
+        app:layout_constraintBottom_toBottomOf="@id/placeHolderIV"
+        app:layout_constraintStart_toEndOf="@id/placeHolderIV"
+        />
+
+
+    <TextView
+        android:id="@+id/lastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Galph"
+        android:layout_marginStart="@dimen/itemMargin"
+        app:layout_constraintBottom_toBottomOf="@+id/lastNameTV"
+        app:layout_constraintStart_toEndOf="@+id/lastNameTV"
+        />
+
+
+
+</android.support.constraint.ConstraintLayout>
+</layout>
