@@ -5,10 +5,14 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.shami.daniyalproject.DaniyalApplication
 import com.shami.daniyalproject.api.FaceReconizationServices
 import com.shami.daniyalproject.api.pojo.request.RegisterRequest
 import com.shami.daniyalproject.api.pojo.response.User
+import com.shami.daniyalproject.datamodels.UserFirebaseDataModel
+import com.shami.daniyalproject.utils.Constant
 import com.shami.daniyalproject.utils.applySchedulersKotlin
 import io.reactivex.disposables.Disposable
 import okhttp3.MediaType
@@ -18,7 +22,7 @@ import java.io.File
 import javax.inject.Inject
 
 /**
- * Created by Ehitshamshami on 3/26/2018.
+ * Created by Ehtisham Shami on 3/26/2018.
  */
 
 class RegisterViewModel(application: Application): AndroidViewModel(application)
@@ -42,10 +46,21 @@ class RegisterViewModel(application: Application): AndroidViewModel(application)
 
     var user= MutableLiveData<User>()
 
+    private lateinit var mFirebaseDatabase: FirebaseDatabase
+    private lateinit var mDaniyalDatabaseReference: DatabaseReference
+
+
+
+
     init {
 
         (application as DaniyalApplication).getComponent().inject(this)
         setValues()
+
+        mFirebaseDatabase= FirebaseDatabase.getInstance()
+        mDaniyalDatabaseReference=mFirebaseDatabase.reference.child("user")
+
+
     }
 
 
@@ -70,7 +85,10 @@ class RegisterViewModel(application: Application): AndroidViewModel(application)
                             isLoading.postValue(false)
                             if(result.applicationStatusCode==0)
                             {
-                                user.postValue(result.user)
+                                result.user?.let {
+                                    mDaniyalDatabaseReference.push().setValue(UserFirebaseDataModel(Constant.currentUser.id,it))
+                                    user.postValue(result.user)
+                                }
                             }
 
                         },
@@ -129,7 +147,7 @@ class RegisterViewModel(application: Application): AndroidViewModel(application)
                             if(result.applicationStatusCode==0)
                             {
                                 result.imageURL?.let{
-                                    registerUser(result.imageURL)
+                                    registerUser(it)
                                 }
 
                             }

@@ -6,10 +6,13 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
 import android.view.View
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.shami.daniyalproject.DaniyalApplication
 import com.shami.daniyalproject.api.FaceReconizationServices
 import com.shami.daniyalproject.api.pojo.request.RegisterRequest
 import com.shami.daniyalproject.api.pojo.response.User
+import com.shami.daniyalproject.datamodels.DriverFirebaseModel
 import com.shami.daniyalproject.utils.applySchedulersKotlin
 import io.reactivex.disposables.Disposable
 import okhttp3.MediaType
@@ -45,6 +48,10 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
     lateinit var  mFaceReconizationService: FaceReconizationServices
 
 
+    private lateinit var mFirebaseDatabase: FirebaseDatabase
+    private lateinit var mDaniyalDatabaseReference: DatabaseReference
+
+
     var firstName=ObservableField<String>()
     var lastName=ObservableField<String>()
     var email=ObservableField<String>()
@@ -61,6 +68,12 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
 
         (app as DaniyalApplication).getComponent().inject(this)
         setValues()
+
+       mFirebaseDatabase= FirebaseDatabase.getInstance()
+       mDaniyalDatabaseReference=mFirebaseDatabase.reference.child("driver")
+
+
+
     }
 
 
@@ -85,7 +98,10 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
                             isLoading.postValue(false)
                             if(result.applicationStatusCode==0)
                             {
-                                user.postValue(result.user)
+                                result.user?.let {
+                                    mDaniyalDatabaseReference.push().setValue(DriverFirebaseModel(0,0,it))
+                                    user.postValue(result.user)
+                                }
                             }
 
                         },
@@ -99,6 +115,14 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
 
     }
 
+    override fun onCleared() {
+        super.onCleared()
+
+        disposable?.let {
+            disposable.dispose()
+        }
+
+    }
 
     fun setValues()
     {

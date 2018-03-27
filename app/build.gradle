@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-kapt'
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.shami.daniyalproject"
         minSdkVersion 17
@@ -71,11 +71,13 @@ dependencies {
     implementation "io.vrinda.kotlinpermissions:kotlinpermissions:$rootProject.kotlinpermission"
 
     implementation "com.google.android.gms:play-services-maps:$rootProject.mapsVersion"
-
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
+    implementation "com.google.android.gms:play-services-location:$rootProject.mapsVersion"
     kapt "com.android.databinding:compiler:$android_plugin_version"
 }
+apply plugin: 'com.google.gms.google-services'
 kapt {
     generateStubs = true
 }

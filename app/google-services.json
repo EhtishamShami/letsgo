@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "675077321824",
+    "firebase_url": "https://daniyalproject-1522047069208.firebaseio.com",
+    "project_id": "daniyalproject-1522047069208",
+    "storage_bucket": "daniyalproject-1522047069208.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675077321824:android:e4ce053f93588002",
+        "android_client_info": {
+          "package_name": "com.shami.daniyalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675077321824-qspq77ej73td0c4gc2k9tu58esdvh9m4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAodgiYUCKKvJfd3rcCDw9Kvk8UIVic2vo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

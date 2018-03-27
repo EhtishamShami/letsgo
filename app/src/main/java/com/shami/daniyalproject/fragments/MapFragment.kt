@@ -19,7 +19,6 @@ class MapFragment:BaseFragment<LayoutMapsBinding>(), OnMapReadyCallback
 
     override fun init(view: View, savedInstanceState: Bundle?) {
 
-
         val mapFragment = (activity as MainActivity).getSupportFragmentManager()
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)

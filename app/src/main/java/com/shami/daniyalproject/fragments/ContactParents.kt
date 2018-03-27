@@ -11,6 +11,9 @@ import com.shami.daniyalproject.databinding.LayoutCurrentStatusBinding
 
 class ContactParents :BaseFragment<LayoutCurrentStatusBinding>()
 {
+
+
+
     override fun init(view: View, savedInstanceState: Bundle?) {
     }
 
@@ -18,6 +21,10 @@ class ContactParents :BaseFragment<LayoutCurrentStatusBinding>()
 
         return R.layout.layout_current_status
     }
+
+
+
+
 
 
     companion object {
