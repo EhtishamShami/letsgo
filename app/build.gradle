@@ -76,6 +76,8 @@ dependencies {
     implementation "com.google.firebase:firebase-database:$rootProject.firebaseVersion"
     implementation "com.google.android.gms:play-services-location:$rootProject.mapsVersion"
     kapt "com.android.databinding:compiler:$android_plugin_version"
+
+    implementation "org.jetbrains.anko:anko-common:$rootProject.ankoVersion"
 }
 apply plugin: 'com.google.gms.google-services'
 kapt {

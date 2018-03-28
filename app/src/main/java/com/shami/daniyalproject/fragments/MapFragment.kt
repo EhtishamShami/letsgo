@@ -6,8 +6,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.shami.daniyalproject.R
-import com.shami.daniyalproject.activities.mainactivity.MainActivity
 import com.shami.daniyalproject.databinding.LayoutMapsBinding
+import org.jetbrains.anko.doAsync
 
 
 /**
@@ -19,9 +19,15 @@ class MapFragment:BaseFragment<LayoutMapsBinding>(), OnMapReadyCallback
 
     override fun init(view: View, savedInstanceState: Bundle?) {
 
-        val mapFragment = (activity as MainActivity).getSupportFragmentManager()
-                .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+
+        doAsync {
+
+            val mapFragment = this@MapFragment.childFragmentManager
+                    .findFragmentById(R.id.map) as SupportMapFragment
+            mapFragment.getMapAsync(this@MapFragment)
+
+        }
+
 
     }
 

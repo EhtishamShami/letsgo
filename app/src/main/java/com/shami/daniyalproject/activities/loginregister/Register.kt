@@ -19,8 +19,6 @@ import com.shami.daniyalproject.activities.BaseActivity
 import com.shami.daniyalproject.api.pojo.response.User
 import com.shami.daniyalproject.databinding.LayoutRegisterBinding
 import io.vrinda.kotlinpermissions.PermissionCallBack
-import okhttp3.MediaType
-import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -75,11 +73,13 @@ class Register:BaseActivity<LayoutRegisterBinding>(),RegisterClickListeners {
 
     override fun register(view: View) {
 
-        cropedImageBitMap?.let {
+        mRegisterViewModel.registerUser("http://124.109.32.134:8080/face-recog-apis/resources/uploads/saved/296713-user.png")
 
-           val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), getRealPathFromURI(getImageUriFromBitMap(this,cropedImageBitMap)))
-            mRegisterViewModel.uploadImage(requestFile,"myName.png",myFile(cropedImageBitMap))
-        }
+//        cropedImageBitMap?.let {
+//
+//           val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), getRealPathFromURI(getImageUriFromBitMap(this,cropedImageBitMap)))
+//            mRegisterViewModel.uploadImage(requestFile,"myName.png",myFile(cropedImageBitMap))
+//        }
 
     }
 

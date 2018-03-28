@@ -23,7 +23,7 @@ object menutil
 
         driverMenuList.add(FragmentDataModel("Mark Attendence", R.drawable.mark_attendance_icon,ReconizeFragment.newInstance))
 
-        driverMenuList.add(FragmentDataModel("Register Student", R.drawable.register_student,ReconizeFragment.newInstance))
+        driverMenuList.add(FragmentDataModel("Register Student", R.drawable.register_student,RegisterStudent.newInstance))
 
         driverMenuList.add(FragmentDataModel("Contact Parent", R.drawable.markattendance,ContactParents.newInstance))
 

@@ -42,7 +42,7 @@ interface RegisterClickListeners
 class RegisterViewModel(app:Application): AndroidViewModel(app)
 {
 
-    lateinit var disposable: Disposable
+    var disposable: Disposable?=null
 
     @Inject
     lateinit var  mFaceReconizationService: FaceReconizationServices
@@ -77,8 +77,7 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
     }
 
 
-    fun registerUser(imageUrl:String)
-    {
+    fun registerUser(imageUrl:String) {
         isLoading.postValue(true)
         disposable= mFaceReconizationService.registerUrl(RegisterRequest(lastName.get().toString().trim(),
                                                         firstName.get().toString().trim(),
@@ -118,14 +117,15 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
     override fun onCleared() {
         super.onCleared()
 
+
         disposable?.let {
-            disposable.dispose()
+            it.dispose()
         }
+
 
     }
 
-    fun setValues()
-    {
+    fun setValues() {
 
         firstName.set("Ehtisham")
         lastName.set("Ehtisham")
@@ -137,18 +137,15 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
     }
 
 
-    fun isLoading():LiveData<Boolean>
-    {
+    fun isLoading():LiveData<Boolean> {
         return isLoading
     }
 
-    fun getUser():LiveData<User>
-    {
+    fun getUser():LiveData<User> {
         return user
     }
 
-    fun uploadImage(requestFile: RequestBody,fileName:String,file: File)
-    {
+    fun uploadImage(requestFile: RequestBody,fileName:String,file: File) {
         val multipartBody = MultipartBody.Part.createFormData("file", "mypic.png", requestFile)
 
         val reqFile = RequestBody.create(MediaType.parse("text/plain"), fileName)

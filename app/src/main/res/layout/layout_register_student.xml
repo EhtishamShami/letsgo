@@ -23,6 +23,7 @@
             android:paddingEnd="@dimen/padding"
             android:paddingTop="@dimen/space"
             android:paddingBottom="@dimen/space"
+            android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

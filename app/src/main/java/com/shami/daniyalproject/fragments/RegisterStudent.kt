@@ -16,13 +16,10 @@ import android.view.View
 import android.widget.Toast
 import com.shami.daniyalproject.R
 import com.shami.daniyalproject.activities.loginregister.RegisterClickListeners
-import com.shami.daniyalproject.activities.loginregister.RegisterViewModel
 import com.shami.daniyalproject.activities.mainactivity.MainActivity
 import com.shami.daniyalproject.api.pojo.response.User
 import com.shami.daniyalproject.databinding.LayoutRegisterStudentBinding
 import io.vrinda.kotlinpermissions.PermissionCallBack
-import okhttp3.MediaType
-import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -34,7 +31,6 @@ import java.io.FileOutputStream
 class RegisterStudent:BaseFragment<LayoutRegisterStudentBinding>(),RegisterClickListeners
 {
 
-    private lateinit var mRegisterViewModel: RegisterViewModel
 
 
     //keep track of camera capture intent
@@ -62,7 +58,7 @@ class RegisterStudent:BaseFragment<LayoutRegisterStudentBinding>(),RegisterClick
             viewmodel=registerViewModel
             listeners=this@RegisterStudent
         }
-
+        subscribe()
 
     }
 
@@ -75,11 +71,14 @@ class RegisterStudent:BaseFragment<LayoutRegisterStudentBinding>(),RegisterClick
 
     override fun register(view: View) {
 
-        cropedImageBitMap?.let {
+        registerViewModel.registerUser("http://124.109.32.134:8080/face-recog-apis/resources/uploads/saved/296713-user.png")
 
-            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), getRealPathFromURI(getImageUriFromBitMap((activity as MainActivity),cropedImageBitMap)))
-            mRegisterViewModel.uploadImage(requestFile,"myName.png",myFile(cropedImageBitMap))
-        }
+
+//        cropedImageBitMap?.let {
+//
+//            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), getRealPathFromURI(getImageUriFromBitMap((activity as MainActivity),cropedImageBitMap)))
+//            registerViewModel.uploadImage(requestFile,"myName.png",myFile(cropedImageBitMap))
+//        }
 
     }
 
@@ -117,8 +116,8 @@ class RegisterStudent:BaseFragment<LayoutRegisterStudentBinding>(),RegisterClick
         }
 
 
-        mRegisterViewModel.isLoading.observe((activity as MainActivity),showLoading)
-        mRegisterViewModel.getUser().observe((activity as MainActivity),user)
+        registerViewModel.isLoading().observe((activity as MainActivity),showLoading)
+        registerViewModel.getUser().observe((activity as MainActivity),user)
 
 
     }
