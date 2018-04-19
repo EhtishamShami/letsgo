@@ -46,7 +46,7 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
 
 
 
-    private lateinit var cropedImageBitMap: Bitmap
+    private lateinit var ImageBitMap: Bitmap
 
 
 
@@ -93,6 +93,7 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
 
                 t?.let {
                 Toast.makeText((activity as MainActivity).applicationContext,"Reeconized",Toast.LENGTH_SHORT).show()
+
                 }
 
             }
@@ -110,10 +111,9 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
 
     override fun markAttendence(view: View) {
 
-        cropedImageBitMap?.let {
+        ImageBitMap?.let {
 
-            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), getRealPathFromURI(getImageUriFromBitMap((activity as MainActivity),cropedImageBitMap)))
-            mViewModel.uploadImage(requestFile,"myName.png",myFile(cropedImageBitMap))
+             mViewModel.uploadImage(myFile(it))
         }
 
 
@@ -141,7 +141,8 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
 
     fun myFile(myBitmap: Bitmap): File
     {
-        val f = File((activity as MainActivity).getCacheDir(), "MyPicture");
+        val filename = picUri.getLastPathSegment()+".png"
+        val f = File((activity as MainActivity).getCacheDir(), filename);
         f.createNewFile();
 
         val bos = ByteArrayOutputStream()
@@ -207,9 +208,9 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
             data?.let {
 
                 val photo = data.extras.get("data") as Bitmap
-
+                ImageBitMap=photo
                 picUri = getImageUri((activity as MainActivity).applicationContext, photo)
-                performCrop()
+                viewDataBinding.camera.setImageBitmap(ImageBitMap)
             }
         }
         else if(resultCode == AppCompatActivity.RESULT_OK &&requestCode == PIC_CROP){
@@ -219,7 +220,7 @@ class ReconizeFragment:BaseFragment<LayoutReconizeBinding>(),MarkAttendenceClick
                 val extras =data.extras
                 val thePic = extras.getParcelable<Bitmap>("data")
 
-                cropedImageBitMap=thePic
+
                 viewDataBinding.camera.setImageBitmap(thePic)
 
             }

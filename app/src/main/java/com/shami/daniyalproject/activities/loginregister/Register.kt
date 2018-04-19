@@ -19,6 +19,8 @@ import com.shami.daniyalproject.activities.BaseActivity
 import com.shami.daniyalproject.api.pojo.response.User
 import com.shami.daniyalproject.databinding.LayoutRegisterBinding
 import io.vrinda.kotlinpermissions.PermissionCallBack
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -45,7 +47,8 @@ class Register:BaseActivity<LayoutRegisterBinding>(),RegisterClickListeners {
 
 
 
-    private lateinit var cropedImageBitMap:Bitmap
+    private lateinit var ImageBitMap: Bitmap
+
 
 
     override fun init(savedInstanceState: Bundle?) {
@@ -73,34 +76,30 @@ class Register:BaseActivity<LayoutRegisterBinding>(),RegisterClickListeners {
 
     override fun register(view: View) {
 
-        mRegisterViewModel.registerUser("http://124.109.32.134:8080/face-recog-apis/resources/uploads/saved/296713-user.png")
+        ImageBitMap?.let {
 
-//        cropedImageBitMap?.let {
-//
-//           val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), getRealPathFromURI(getImageUriFromBitMap(this,cropedImageBitMap)))
-//            mRegisterViewModel.uploadImage(requestFile,"myName.png",myFile(cropedImageBitMap))
-//        }
+            mRegisterViewModel.uploadImage(myFile(ImageBitMap))
+        }
 
     }
 
 
 
-    fun subscribe()
-    {
 
-        val showLoading=object:Observer<Boolean>
-        {
+
+    fun subscribe() {
+
+        val showLoading=object:Observer<Boolean> {
             override fun onChanged(t: Boolean?) {
 
                 t?.let{
 
-                    if(t)
-                    {
+                    if(t) {
                         showLoading()
                     }
-                    else
-                    {
+                    else {
                         hideLoading()
+
                     }
                 }
 
@@ -131,9 +130,10 @@ class Register:BaseActivity<LayoutRegisterBinding>(),RegisterClickListeners {
         return Uri.parse(path)
     }
 
-    fun myFile(myBitmap: Bitmap):File
-    {
-        val f = File(this.getCacheDir(), "MyPicture");
+    fun myFile(myBitmap: Bitmap):File {
+
+        val filename = picUri.getLastPathSegment()+".png"
+        val f = File(this.getCacheDir(), filename);
         f.createNewFile();
 
         val bos =ByteArrayOutputStream()
@@ -172,23 +172,17 @@ class Register:BaseActivity<LayoutRegisterBinding>(),RegisterClickListeners {
 
         }
 
-
-
-
-
     }
 
 
 
-    fun takePicture()
-    {
+    fun takePicture() {
 
         try {
             val captureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(captureIntent, CAMERA_CAPTURE);
         }
-        catch (ex: ActivityNotFoundException)
-        {
+        catch (ex: ActivityNotFoundException) {
             Toast.makeText(applicationContext,"Your Device doesnt support Camera", Toast.LENGTH_SHORT).show()
             ex.printStackTrace()
         }
@@ -203,9 +197,10 @@ class Register:BaseActivity<LayoutRegisterBinding>(),RegisterClickListeners {
             data?.let {
 
                 val photo = data.extras.get("data") as Bitmap
-
+                ImageBitMap=photo
                 picUri = getImageUri(applicationContext, photo)
-                performCrop()
+                viewDataBinding.profilePhotoIV.setImageBitmap(ImageBitMap)
+          //      performCrop()
             }
         }
         else if(resultCode == RESULT_OK &&requestCode == PIC_CROP){
@@ -215,7 +210,6 @@ class Register:BaseActivity<LayoutRegisterBinding>(),RegisterClickListeners {
                 val extras =data.extras
                 val thePic = extras.getParcelable<Bitmap>("data")
 
-                cropedImageBitMap=thePic
                 viewDataBinding.profilePhotoIV.setImageBitmap(thePic)
 
             }

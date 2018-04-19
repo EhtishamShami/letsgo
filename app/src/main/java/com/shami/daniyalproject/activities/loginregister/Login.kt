@@ -86,6 +86,20 @@ class Login :BaseActivity<LayoutLoginBinding>(),LoginClickListeners {
 
         }
 
+
+        val errorObserver=object:Observer<Throwable>{
+            override fun onChanged(t: Throwable?) {
+
+                t?.let {
+                    showHttpError(it)
+                }
+
+            }
+
+        }
+
+
+        mLoginOrRegisterViewModel.getError().observe(this,errorObserver)
         mLoginOrRegisterViewModel.getLoading().observe(this,mShowLoading)
         mLoginOrRegisterViewModel.getUser().observe(this,userObserver)
 

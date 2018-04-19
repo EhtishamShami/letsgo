@@ -20,6 +20,8 @@ import com.shami.daniyalproject.activities.mainactivity.MainActivity
 import com.shami.daniyalproject.api.pojo.response.User
 import com.shami.daniyalproject.databinding.LayoutRegisterStudentBinding
 import io.vrinda.kotlinpermissions.PermissionCallBack
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -42,7 +44,7 @@ class RegisterStudent:BaseFragment<LayoutRegisterStudentBinding>(),RegisterClick
 
 
 
-    private lateinit var cropedImageBitMap: Bitmap
+   private lateinit var ImageBitMap: Bitmap
 
 
     private lateinit var registerViewModel:com.shami.daniyalproject.fragments.RegisterViewModel
@@ -71,14 +73,12 @@ class RegisterStudent:BaseFragment<LayoutRegisterStudentBinding>(),RegisterClick
 
     override fun register(view: View) {
 
-        registerViewModel.registerUser("http://124.109.32.134:8080/face-recog-apis/resources/uploads/saved/296713-user.png")
 
+        ImageBitMap?.let {
 
-//        cropedImageBitMap?.let {
-//
-//            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), getRealPathFromURI(getImageUriFromBitMap((activity as MainActivity),cropedImageBitMap)))
-//            registerViewModel.uploadImage(requestFile,"myName.png",myFile(cropedImageBitMap))
-//        }
+        //    val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), getRealPathFromURI(getImageUriFromBitMap((activity as MainActivity),it)))
+            registerViewModel.uploadImage(myFile(ImageBitMap))
+        }
 
     }
 
@@ -110,7 +110,7 @@ class RegisterStudent:BaseFragment<LayoutRegisterStudentBinding>(),RegisterClick
         val user= object : Observer<User> {
             override fun onChanged(t: User?) {
                 t?.let {
-                    Toast.makeText((activity as MainActivity),"Driver Registered Sucessfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText((activity as MainActivity),"User Registered Sucessfully", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -132,7 +132,8 @@ class RegisterStudent:BaseFragment<LayoutRegisterStudentBinding>(),RegisterClick
 
     fun myFile(myBitmap: Bitmap): File
     {
-        val f = File((activity as MainActivity).getCacheDir(), "MyPicture");
+        val filename = picUri.getLastPathSegment()+".png"
+        val f = File((activity as MainActivity).getCacheDir(), filename);
         f.createNewFile();
 
         val bos = ByteArrayOutputStream()
@@ -202,9 +203,10 @@ class RegisterStudent:BaseFragment<LayoutRegisterStudentBinding>(),RegisterClick
             data?.let {
 
                 val photo = data.extras.get("data") as Bitmap
-
+                ImageBitMap=photo
                 picUri = getImageUri((activity as MainActivity).applicationContext, photo)
-                performCrop()
+                viewDataBinding.profilePhotoIV.setImageBitmap(photo)
+             //   performCrop()
             }
         }
         else if(resultCode == AppCompatActivity.RESULT_OK &&requestCode == PIC_CROP){
@@ -214,7 +216,6 @@ class RegisterStudent:BaseFragment<LayoutRegisterStudentBinding>(),RegisterClick
                 val extras =data.extras
                 val thePic = extras.getParcelable<Bitmap>("data")
 
-                cropedImageBitMap=thePic
                 viewDataBinding.profilePhotoIV.setImageBitmap(thePic)
 
             }

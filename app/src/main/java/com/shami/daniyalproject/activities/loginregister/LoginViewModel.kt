@@ -34,6 +34,7 @@ class LoginViewModel(app:Application): AndroidViewModel(app)
     var username=ObservableField<String>()
     var password=ObservableField<String>()
 
+    var errorMessage= MutableLiveData<Throwable>()
 
     lateinit var disposable: Disposable
 
@@ -70,14 +71,18 @@ class LoginViewModel(app:Application): AndroidViewModel(app)
 
                         },
                         { error ->
-
-
+                            errorMessage.postValue(error)
                             isRequestProcessing.postValue(false)
 
                         }
                 )
 
 
+    }
+
+    fun getError():LiveData<Throwable> {
+
+        return errorMessage
     }
 
 

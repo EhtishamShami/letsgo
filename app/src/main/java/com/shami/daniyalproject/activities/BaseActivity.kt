@@ -10,6 +10,7 @@ import android.support.annotation.LayoutRes
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import com.evampsaanga.stcenterprisealcarte.util.ProgressDialogeInterface
 import com.shami.daniyalproject.R
 import io.vrinda.kotlinpermissions.PermissionsActivity
@@ -106,9 +107,11 @@ abstract class BaseActivity<T: ViewDataBinding>:PermissionsActivity(),ProgressDi
     override fun hideLoading() { dismissProgress() }
     override fun loadError(e: Throwable) { showHttpError(e) }
 
-    /*Load error Mazhar bhi kay sath decide kartey han*/
 
-    override fun loadError(msg: String) {}
+    override fun loadError(msg: String) {
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
+
+    }
 
 
 
@@ -151,7 +154,7 @@ abstract class BaseActivity<T: ViewDataBinding>:PermissionsActivity(),ProgressDi
      */
 
     protected fun showHttpError(e: Throwable) {
-
+        loadError(e.localizedMessage)
     }
 
 

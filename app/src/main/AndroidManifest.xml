@@ -26,10 +26,13 @@
         android:supportsRtl="true"
         android:name=".DaniyalApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.mainactivity.MainActivity"/>
+        <activity android:name=".activities.mainactivity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
 
         <activity android:name=".activities.loginregister.Login"
                   android:theme="@style/AppThemeNoActionBar"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
                   >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +40,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.loginregister.Register"/>
+        <activity android:name=".activities.loginregister.Register"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAGsE92pM_hEPDU9TQUTE9wwX9aFfEKd4o"/>

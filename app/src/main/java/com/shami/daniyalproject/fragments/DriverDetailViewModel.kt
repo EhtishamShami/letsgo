@@ -4,16 +4,14 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.databinding.ObservableField
 import com.google.firebase.database.*
 import com.shami.daniyalproject.api.pojo.response.User
+import com.shami.daniyalproject.datamodels.DriverFirebaseModel
 import com.shami.daniyalproject.datamodels.UserFirebaseDataModel
 import com.shami.daniyalproject.utils.Constant
 
-/**
- * Created by Ehtisham shami on 3/27/2018.
- */
-
-class ContactParentsViewModel(application: Application): AndroidViewModel(application) {
+class DriverDetailViewModel(application: Application): AndroidViewModel(application) {
 
     private lateinit var mFirebaseDatabase: FirebaseDatabase
 
@@ -21,36 +19,35 @@ class ContactParentsViewModel(application: Application): AndroidViewModel(applic
 
     private lateinit var mChildeEventListener: ChildEventListener
 
-    val user= MutableLiveData<User>()
+    val user= ObservableField<User>()
+
+    val userLiveData= MutableLiveData<User>()
 
 
     init {
 
         mFirebaseDatabase= FirebaseDatabase.getInstance()
 
-        mDaniyalDatabaseReference=mFirebaseDatabase.reference.child("user")
+        mDaniyalDatabaseReference=mFirebaseDatabase.reference.child("driver")
 
         mChildeEventListener = object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot?, s: String?) {
 
-                val mUser = dataSnapshot?.getValue<UserFirebaseDataModel>(UserFirebaseDataModel::class.java)
+                val mUser = dataSnapshot?.getValue<DriverFirebaseModel>(DriverFirebaseModel::class.java)
                 mUser?.user?.let {
-                    if(mUser.driverId== Constant.currentUser.id) {
-                        user.value=it
-                    }
+                  user.set(it)
+                    userLiveData.postValue(it)
                 }
 
 
-                }
+            }
 
             override fun onChildChanged(dataSnapshot: DataSnapshot?, s: String?) {
-                val mUser = dataSnapshot?.getValue<UserFirebaseDataModel>(UserFirebaseDataModel::class.java)
+                val mUser = dataSnapshot?.getValue<DriverFirebaseModel>(DriverFirebaseModel::class.java)
                 mUser?.user?.let {
-                    if(mUser.driverId== Constant.currentUser.id) {
-                        user.postValue(it)
-                    }
+                    user.set(it)
+                    userLiveData.postValue(it)
                 }
-
             }
 
             override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
@@ -72,10 +69,12 @@ class ContactParentsViewModel(application: Application): AndroidViewModel(applic
     }
 
 
-    fun getUserList(): LiveData<User> {
-        return user
-    }
 
+
+    fun getUserData():LiveData<User>
+    {
+        return userLiveData
+    }
 
 
 

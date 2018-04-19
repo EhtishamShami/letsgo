@@ -13,6 +13,8 @@ import com.shami.daniyalproject.api.FaceReconizationServices
 import com.shami.daniyalproject.api.pojo.request.RegisterRequest
 import com.shami.daniyalproject.api.pojo.response.User
 import com.shami.daniyalproject.datamodels.DriverFirebaseModel
+import com.shami.daniyalproject.datamodels.UserFirebaseDataModel
+import com.shami.daniyalproject.utils.Constant
 import com.shami.daniyalproject.utils.applySchedulersKotlin
 import io.reactivex.disposables.Disposable
 import okhttp3.MediaType
@@ -48,8 +50,8 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
     lateinit var  mFaceReconizationService: FaceReconizationServices
 
 
-    private lateinit var mFirebaseDatabase: FirebaseDatabase
-    private lateinit var mDaniyalDatabaseReference: DatabaseReference
+    private  var mFirebaseDatabase: FirebaseDatabase
+    private  var mDaniyalDatabaseReference: DatabaseReference
 
 
     var firstName=ObservableField<String>()
@@ -88,7 +90,8 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
                                                         password.get().toString().trim(),
                                                         idCard.get().toString().trim(),
                                                         email.get().toString().trim(),
-                                                        "driver"
+                                                        "driver",
+                                                        "anythingBro"
                                                         ))
                 .compose(applySchedulersKotlin())
                 .subscribe(
@@ -98,7 +101,8 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
                             if(result.applicationStatusCode==0)
                             {
                                 result.user?.let {
-                                    mDaniyalDatabaseReference.push().setValue(DriverFirebaseModel(0,0,it))
+                                    mDaniyalDatabaseReference.push().setValue(DriverFirebaseModel("0","0",it))
+
                                     user.postValue(result.user)
                                 }
                             }
@@ -127,12 +131,12 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
 
     fun setValues() {
 
-        firstName.set("Ehtisham")
-        lastName.set("Ehtisham")
-        email.set("Ehtisham")
-        phoneNumber.set("03455650843")
-        password.set("Ehtisham")
-        idCard.set("Ehtisham")
+        firstName.set("James")
+        lastName.set("James")
+        email.set("James")
+        phoneNumber.set("911")
+        password.set("James")
+        idCard.set("James")
 
     }
 
@@ -145,10 +149,13 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
         return user
     }
 
-    fun uploadImage(requestFile: RequestBody,fileName:String,file: File) {
-        val multipartBody = MultipartBody.Part.createFormData("file", "mypic.png", requestFile)
+    fun uploadImage(file: File) {
 
-        val reqFile = RequestBody.create(MediaType.parse("text/plain"), fileName)
+        val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
+
+        val multipartBody = MultipartBody.Part.createFormData("file", file.name,requestFile )
+
+        val reqFile = RequestBody.create(MediaType.parse("text/plain"), file.name)
 
         val isUserRecogn = RequestBody.create(MediaType.parse("text/plain"), "false")
 

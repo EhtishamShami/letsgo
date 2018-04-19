@@ -4,8 +4,11 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.shami.daniyalproject.DaniyalApplication
 import com.shami.daniyalproject.api.FaceReconizationServices
+import com.shami.daniyalproject.api.SmsPkService
 import com.shami.daniyalproject.api.pojo.response.User
 import com.shami.daniyalproject.utils.applySchedulersKotlin
 import io.reactivex.disposables.Disposable
@@ -27,6 +30,9 @@ class ReconizeFragmentViewModel(application: Application): AndroidViewModel(appl
     @Inject
     lateinit var  mFaceReconizationService: FaceReconizationServices
 
+    @Inject
+    lateinit var mSendSmsService:SmsPkService
+
 
     var isLoading= MutableLiveData<Boolean>()
 
@@ -37,26 +43,25 @@ class ReconizeFragmentViewModel(application: Application): AndroidViewModel(appl
 
         (application as DaniyalApplication).getComponent().inject(this)
 
-
     }
 
 
-    fun getUser(): LiveData<User>
-    {
+    fun getUser(): LiveData<User> {
         return user
     }
 
 
-    fun isLoading():LiveData<Boolean>
-    {
+    fun isLoading():LiveData<Boolean> {
         return isLoading
     }
 
-    fun uploadImage(requestFile: RequestBody, fileName:String, file: File)
+    fun uploadImage( file: File)
     {
-        val multipartBody = MultipartBody.Part.createFormData("file", "mypic.png", requestFile)
+        val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
 
-        val reqFile = RequestBody.create(MediaType.parse("text/plain"), fileName)
+        val multipartBody = MultipartBody.Part.createFormData("file", file.name,requestFile )
+
+        val reqFile = RequestBody.create(MediaType.parse("text/plain"), file.name)
 
         val isUserRecogn = RequestBody.create(MediaType.parse("text/plain"), "true")
 
@@ -73,9 +78,7 @@ class ReconizeFragmentViewModel(application: Application): AndroidViewModel(appl
                             if(result.applicationStatusCode==0)
                             {
                                 result.user?.let {
-
                                     user.postValue(it)
-
                                 }
 
                             }
@@ -90,5 +93,11 @@ class ReconizeFragmentViewModel(application: Application): AndroidViewModel(appl
 
     }
 
+
+    fun sendSms(number:String,fristName:String)
+    {
+        mSendSmsService.sendSms("923325603050","2387","Masking",number,fristName+" has been picked up")
+
+    }
 
 }

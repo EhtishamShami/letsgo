@@ -13,5 +13,7 @@ data class RegisterRequest(val lastName:String,
                            val confirmPassword:String,
                            val cnic:String,
                            val email:String,
-                           val userType:String
+                           val userType:String,
+                           val dirverId:String
                            )
+

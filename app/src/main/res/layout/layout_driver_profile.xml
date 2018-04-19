@@ -8,7 +8,7 @@
 
         <variable
             name="viewmodel"
-            type="com.shami.daniyalproject.activities.mainactivity.MainActivityViewModel"/>
+            type="com.shami.daniyalproject.fragments.DriverDetailViewModel"/>
 
 
 
@@ -51,8 +51,9 @@
             android:id="@+id/firstnameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="First Name"
-            android:text="Layla"
+            android:enabled="true"
+            android:hint="Driver Name"
+            android:text="@{viewmodel.user.get().firstName}"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -71,8 +72,9 @@
             android:id="@+id/lastnameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="true"
             android:hint="Last Name"
-            android:text="Fijwara"
+            android:text="@{viewmodel.user.get().lastName}"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -93,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Phone Number"
-            android:text="03455650843"
+            android:text="@{viewmodel.user.get().phoneNumber}"
             />
     </android.support.design.widget.TextInputLayout>
 

@@ -55,7 +55,7 @@ class RegisterViewModel(application: Application): AndroidViewModel(application)
     init {
 
         (application as DaniyalApplication).getComponent().inject(this)
-        setValues()
+    //    setValues()
 
         mFirebaseDatabase= FirebaseDatabase.getInstance()
         mDaniyalDatabaseReference=mFirebaseDatabase.reference.child("user")
@@ -76,7 +76,8 @@ class RegisterViewModel(application: Application): AndroidViewModel(application)
                 password.get().toString().trim(),
                 idCard.get().toString().trim(),
                 email.get().toString().trim(),
-                "user"
+                "user",
+                Constant.currentUser.email
         ))
                 .compose(applySchedulersKotlin())
                 .subscribe(
@@ -103,34 +104,32 @@ class RegisterViewModel(application: Application): AndroidViewModel(application)
     }
 
 
-    fun setValues()
-    {
+    fun setValues() {
 
-        firstName.set("Ehtisham")
-        lastName.set("Ehtisham")
-        email.set("Ehtisham")
-        phoneNumber.set("03455650843")
-        password.set("Ehtisham")
-        idCard.set("Ehtisham")
+        firstName.set("User")
+        lastName.set("User")
+        email.set("user@gmail.com")
+        phoneNumber.set("15")
+        password.set("user")
+        idCard.set("User")
 
     }
 
 
-    fun isLoading(): LiveData<Boolean>
-    {
+    fun isLoading(): LiveData<Boolean> {
         return isLoading
     }
 
-    fun getUser(): LiveData<User>
-    {
+    fun getUser(): LiveData<User> {
         return user
     }
 
-    fun uploadImage(requestFile: RequestBody, fileName:String, file: File)
-    {
-        val multipartBody = MultipartBody.Part.createFormData("file", "mypic.png", requestFile)
+    fun uploadImage(file: File) {
+        val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
 
-        val reqFile = RequestBody.create(MediaType.parse("text/plain"), fileName)
+        val multipartBody = MultipartBody.Part.createFormData("file", file.name,requestFile )
+
+        val reqFile = RequestBody.create(MediaType.parse("text/plain"), file.name)
 
         val isUserRecogn = RequestBody.create(MediaType.parse("text/plain"), "false")
 

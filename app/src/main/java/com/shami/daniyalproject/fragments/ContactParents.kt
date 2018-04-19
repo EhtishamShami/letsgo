@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.shami.daniyalproject.R
 import com.shami.daniyalproject.activities.mainactivity.MainActivity
@@ -40,8 +41,7 @@ class ContactParents :BaseFragment<LayoutCurrentStatusBinding>()
     }
 
 
-    fun subscribe()
-    {
+    fun subscribe() {
         val userAdded=object:Observer<User>{
             override fun onChanged(t: User?) {
                 t?.let {
@@ -56,8 +56,7 @@ class ContactParents :BaseFragment<LayoutCurrentStatusBinding>()
     }
 
 
-    fun setRecycler()
-    {
+    fun setRecycler() {
 
         mAdapter= ParentAdapter(ArrayList<User>(),object:ParentAdapter.callButton{
             override fun callParnet(user: User) {
@@ -78,7 +77,7 @@ class ContactParents :BaseFragment<LayoutCurrentStatusBinding>()
             }
         })
 
-        viewDataBinding.parentList.layoutManager= GridLayoutManager(context,2)
+        viewDataBinding.parentList.layoutManager= LinearLayoutManager(context)
         viewDataBinding.parentList.adapter=mAdapter
 
 

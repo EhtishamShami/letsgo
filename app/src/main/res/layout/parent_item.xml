@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/darker_gray"
     xmlns:tool="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="8dp">
@@ -11,10 +12,25 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Different"
+    android:textColor="@android:color/white"
+    android:textSize="24sp"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     />
+
+    <TextView
+        android:id="@+id/useremailTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Different"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/nameTV"
+        app:layout_constraintTop_toBottomOf="@id/nameTV"
+        />
+
+
 
 <Button
     android:id="@+id/callBtn"
@@ -22,8 +38,7 @@
     style="@style/buttons"
     android:layout_margin="8dp"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/nameTV"
+    app:layout_constraintTop_toTopOf="parent"
     />
 
 
