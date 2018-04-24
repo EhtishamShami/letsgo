@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.View
 import android.widget.Toast
 import com.shami.daniyalproject.R
@@ -78,6 +79,8 @@ class Login :BaseActivity<LayoutLoginBinding>(),LoginClickListeners {
 
                 t?.let {
                     Constant.currentUser=t
+                    val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+                    preferences.edit().putInt(Constant.UserID, it.id).apply()
                 }
                 val intent=Intent(this@Login, MainActivity::class.java)
                 startActivity(intent)

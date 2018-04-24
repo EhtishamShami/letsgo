@@ -15,11 +15,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.shami.daniyalproject.R
 import com.shami.daniyalproject.activities.BaseActivity
-import com.shami.daniyalproject.api.pojo.response.User
 import com.shami.daniyalproject.databinding.ActivityMainBinding
 import com.shami.daniyalproject.datamodels.DriverFirebaseModel
 import com.shami.daniyalproject.utils.Constant
 import io.vrinda.kotlinpermissions.PermissionCallBack
+
+
 
 class MainActivity : BaseActivity<ActivityMainBinding>(),GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks,LocationListener {
 
@@ -27,6 +28,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),GoogleApiClient.OnConne
     private lateinit var mLocationRequest: LocationRequest
 
     private lateinit var mGoogleApiClient: GoogleApiClient
+    override fun onBackPressed() {
+
+
+        super.onBackPressed()
+    }
 
     // Firebase instance variables
     private lateinit var mFirebaseDatabase: FirebaseDatabase

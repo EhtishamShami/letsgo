@@ -9,6 +9,7 @@ data class ReconizeResponse(val applicationStatusCode:Int,
                             val statusResponse:String?,
                             val applicationErrorCode:String?,
                             val errorMessage:String?,
+                            val faceId:String,
                             val user:User
                             )
 

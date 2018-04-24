@@ -2,6 +2,7 @@ package com.shami.daniyalproject.di
 
 import android.util.Log
 import com.shami.daniyalproject.BuildConfig
+import com.shami.daniyalproject.utils.Constant
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -10,6 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -82,6 +84,20 @@ Header Initialization
     {
         val builder = Retrofit.Builder()
                 .baseUrl(BuildConfig.baseURL)
+                .addConverterFactory(MoshiConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(okHttpClient)
+                .build()
+
+        return builder
+    }
+
+    @Named(Constant.SENDPKAPI)
+    @Provides
+    @Singleton
+    fun provideRetrofitBuilderForSms(okHttpClient: OkHttpClient): Retrofit {
+        val builder = Retrofit.Builder()
+                .baseUrl("http://sendpk.com/api/sms.php/")
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)

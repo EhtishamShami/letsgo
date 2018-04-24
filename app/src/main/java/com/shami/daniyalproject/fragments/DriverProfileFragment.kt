@@ -35,7 +35,7 @@ class DriverProfileFragment:BaseFragment<LayoutDriverProfileBinding>(),InfoViewC
             listeners=this@DriverProfileFragment
         }
 
-        subscribe(view)
+//        subscribe(view)
     }
 
     fun subscribe(view:View) {
@@ -51,7 +51,7 @@ class DriverProfileFragment:BaseFragment<LayoutDriverProfileBinding>(),InfoViewC
             }
         }
 
-        mDriverProileViewModel.getUserData().observe(this@DriverProfileFragment,userObserver)
+       // mDriverProileViewModel.getUserData().observe(this@DriverProfileFragment,userObserver)
 
     }
 

@@ -1,6 +1,7 @@
 package com.shami.daniyalproject
 
 import android.app.Application
+import com.google.firebase.messaging.FirebaseMessaging
 import com.shami.daniyalproject.di.ApiModule
 import com.shami.daniyalproject.di.AppComponent
 import com.shami.daniyalproject.di.AppModule
@@ -24,6 +25,8 @@ class DaniyalApplication:Application()
     override fun onCreate() {
         super.onCreate()
         appComponent.inject(this)
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
+
     }
 
     fun getComponent():AppComponent

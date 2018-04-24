@@ -2,18 +2,15 @@ package com.shami.daniyalproject.fragments
 
 import android.os.Bundle
 import android.view.View
-
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.*
 import com.shami.daniyalproject.R
 import com.shami.daniyalproject.databinding.LayoutMapsBinding
-import org.jetbrains.anko.doAsync
-import com.shami.daniyalproject.datamodels.UserFirebaseDataModel
-import com.shami.daniyalproject.utils.Constant
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.MarkerOptions
-import android.text.method.TextKeyListener.clear
-import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.LatLng
 import com.shami.daniyalproject.datamodels.DriverFirebaseModel
 
 
@@ -117,7 +114,7 @@ class MapFragment:BaseFragment<LayoutMapsBinding>(), OnMapReadyCallback
             map.clear()
             map.addMarker(MarkerOptions().position(sydney)
                     .title(DriverName))
-            map.animateCamera(CameraUpdateFactory.newLatLng(sydney))
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney,15f))
         } catch (ex: Exception) {
             ex.printStackTrace()
         }

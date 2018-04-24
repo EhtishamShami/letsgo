@@ -13,8 +13,6 @@ import com.shami.daniyalproject.api.FaceReconizationServices
 import com.shami.daniyalproject.api.pojo.request.RegisterRequest
 import com.shami.daniyalproject.api.pojo.response.User
 import com.shami.daniyalproject.datamodels.DriverFirebaseModel
-import com.shami.daniyalproject.datamodels.UserFirebaseDataModel
-import com.shami.daniyalproject.utils.Constant
 import com.shami.daniyalproject.utils.applySchedulersKotlin
 import io.reactivex.disposables.Disposable
 import okhttp3.MediaType
@@ -79,12 +77,13 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
     }
 
 
-    fun registerUser(imageUrl:String) {
+    fun registerUser(imageUrl:String,faceID:String) {
         isLoading.postValue(true)
         disposable= mFaceReconizationService.registerUrl(RegisterRequest(lastName.get().toString().trim(),
                                                         firstName.get().toString().trim(),
                                                         password.get().toString().trim(),
                                                         phoneNumber.get().toString().trim(),
+                                                        faceID,
                                                         "Male",
                                                         imageUrl,
                                                         password.get().toString().trim(),
@@ -172,7 +171,7 @@ class RegisterViewModel(app:Application): AndroidViewModel(app)
                             if(result.applicationStatusCode==0)
                             {
                                 result.imageURL?.let{
-                                    registerUser(result.imageURL)
+                                    registerUser(result.imageURL,result.faceId)
                                 }
 
                             }

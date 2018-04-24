@@ -5,28 +5,32 @@ package com.shami.daniyalproject.api.pojo.response
  */
 
 
-data class User(var id:Int?,
+data class User(var id:Int,
                 var firstName:String,
                 var lastName:String?,
-                var phoneNumber:String?,
+                var phoneNumber:String,
                 var gender:String?,
                 var cnic:String?,
                 var email:String,
                 var imageURL:String?,
                 var guid:String?,
-                var userType:String?
+                var userType:String?,var driverId:String?,
+                var faceId:String?
                 )
 {
     constructor():this(
+            0,
+            "",
             null,
             "",
             null,
             null,
-            null,
-            null,
             "",
+            null,
+            null,
             null,
             null,
             null
     )
 }
+

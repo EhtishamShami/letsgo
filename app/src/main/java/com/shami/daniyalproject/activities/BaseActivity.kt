@@ -38,6 +38,7 @@ abstract class BaseActivity<T: ViewDataBinding>:PermissionsActivity(),ProgressDi
         super.onCreate(savedInstanceState)
         viewDataBinding= DataBindingUtil.setContentView(this,setLayout())
         mProgressDialog = ProgressDialog(this)
+
         init(savedInstanceState)
     }
 
@@ -154,7 +155,9 @@ abstract class BaseActivity<T: ViewDataBinding>:PermissionsActivity(),ProgressDi
      */
 
     protected fun showHttpError(e: Throwable) {
-        loadError(e.localizedMessage)
+        e.localizedMessage?.let {
+            loadError(e.localizedMessage)
+        }
     }
 
 

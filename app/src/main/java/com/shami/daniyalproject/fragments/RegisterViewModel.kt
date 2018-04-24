@@ -64,7 +64,7 @@ class RegisterViewModel(application: Application): AndroidViewModel(application)
     }
 
 
-    fun registerUser(imageUrl:String)
+    fun registerUser(imageUrl:String,pictureID:String)
     {
         isLoading.postValue(true)
         disposable= mFaceReconizationService.registerUrl(RegisterRequest(lastName.get().toString().trim(),
@@ -72,6 +72,7 @@ class RegisterViewModel(application: Application): AndroidViewModel(application)
                 password.get().toString().trim(),
                 phoneNumber.get().toString().trim(),
                 "Male",
+                pictureID,
                 imageUrl,
                 password.get().toString().trim(),
                 idCard.get().toString().trim(),
@@ -146,7 +147,7 @@ class RegisterViewModel(application: Application): AndroidViewModel(application)
                             if(result.applicationStatusCode==0)
                             {
                                 result.imageURL?.let{
-                                    registerUser(it)
+                                    registerUser(it,result.faceId)
                                 }
 
                             }

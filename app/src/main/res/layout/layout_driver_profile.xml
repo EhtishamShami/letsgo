@@ -29,9 +29,9 @@
 
     <ImageView
         android:id="@+id/driverPhotoIV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/placeholderdude"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:src="@drawable/ali"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,9 +51,9 @@
             android:id="@+id/firstnameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="true"
             android:hint="Driver Name"
-            android:text="@{viewmodel.user.get().firstName}"
+            android:enabled="false"
+            android:text="Ali"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -72,9 +72,9 @@
             android:id="@+id/lastnameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="true"
             android:hint="Last Name"
-            android:text="@{viewmodel.user.get().lastName}"
+            android:enabled="false"
+            android:text="Hassan"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -95,7 +95,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Phone Number"
-            android:text="@{viewmodel.user.get().phoneNumber}"
+            android:enabled="false"
+            android:text="03435267886"
             />
     </android.support.design.widget.TextInputLayout>
 
