@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.shami.daniyalproject.R
@@ -59,6 +58,11 @@ class ContactParents :BaseFragment<LayoutCurrentStatusBinding>()
     fun setRecycler() {
 
         mAdapter= ParentAdapter(ArrayList<User>(),object:ParentAdapter.callButton{
+
+            override fun deleteParent(user: User) {
+
+            }
+
             override fun callParnet(user: User) {
 
                 (activity as MainActivity).requestPermissions(android.Manifest.permission.CALL_PHONE,object : PermissionCallBack {

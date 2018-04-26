@@ -99,7 +99,7 @@ class ReconizeFragmentViewModel(application: Application): AndroidViewModel(appl
                                     val formatter = SimpleDateFormat("HH:mm:ss:SSS")
                                     val dateFormatted = formatter.format(currentTime)
                                     mDaniyalDatabaseReference.push().setValue(NotificationDataModel(it.id,it.firstName+" Picked UP",dateFormatted,currentTime.date.toString()+","+currentTime.month.toString()+","+currentTime.year.toString()))
-
+                                    sendSms(it.phoneNumber,it.firstName)
                                 }
 
                             }
@@ -117,7 +117,9 @@ class ReconizeFragmentViewModel(application: Application): AndroidViewModel(appl
 
     fun sendSms(number:String,fristName:String)
     {
-        mSendSmsService.sendSms("923325603050","2387","Masking",number,fristName+" has been picked up")
+        disposable=  mSendSmsService.sendSms("923325603050","2387","Masking",number,fristName+" has been picked up")
+                .compose(applySchedulersKotlin())
+                .subscribe()
 
     }
 

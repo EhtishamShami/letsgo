@@ -37,10 +37,18 @@
     android:id="@+id/callBtn"
     android:text="Call"
     style="@style/buttons"
-    android:layout_margin="8dp"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="@+id/nameTV"
     />
+
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:text="Delete Record"
+        style="@style/buttons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/useremailTV"
+        />
 
 
 </android.support.constraint.ConstraintLayout>

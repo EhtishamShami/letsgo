@@ -52,9 +52,17 @@ class ParentAdapter(var mList:ArrayList<User>,var mClickListener:callButton) :Re
         val call_button=itemView.callBtn
         val parentEmail=itemView.useremailTV
 
+        val delete_recordBtn=itemView.deleteBtn
+
         init {
             call_button.setOnClickListener {
                 mClickListener.callParnet(mList[adapterPosition])
+            }
+
+            delete_recordBtn.setOnClickListener{
+                mClickListener.deleteParent(mList[adapterPosition])
+                mList.removeAt(adapterPosition)
+                notifyItemRemoved(adapterPosition)
             }
         }
 
@@ -69,7 +77,7 @@ class ParentAdapter(var mList:ArrayList<User>,var mClickListener:callButton) :Re
     interface callButton {
 
         fun callParnet(user: User)
-
+        fun deleteParent(user:User)
     }
 
 }
