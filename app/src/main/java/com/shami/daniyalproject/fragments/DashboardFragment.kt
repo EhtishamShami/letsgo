@@ -44,7 +44,7 @@ class DashboardFragment:BaseFragment<LayoutDashboardBinding>()
 
             override fun selectItem(currentItem: FragmentDataModel) {
 
-                (activity as MainActivity).replaceFragmentInActivity(currentItem.mFragmentInstance,R.id.dashboardItemsRecycler,true)
+                (activity as MainActivity).replaceFragmentInActivity(currentItem.mFragmentInstance,R.id.dashboardItemsRecycler,currentItem.mFragmentTitle,true)
             }
 
         })

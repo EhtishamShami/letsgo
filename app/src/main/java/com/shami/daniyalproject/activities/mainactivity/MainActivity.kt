@@ -17,8 +17,12 @@ import com.shami.daniyalproject.R
 import com.shami.daniyalproject.activities.BaseActivity
 import com.shami.daniyalproject.databinding.ActivityMainBinding
 import com.shami.daniyalproject.datamodels.DriverFirebaseModel
+import com.shami.daniyalproject.fragments.DashboardFragment
 import com.shami.daniyalproject.utils.Constant
+import com.shami.daniyalproject.utils.replaceFragmentInActivity
 import io.vrinda.kotlinpermissions.PermissionCallBack
+
+
 
 
 
@@ -29,9 +33,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),GoogleApiClient.OnConne
 
     private lateinit var mGoogleApiClient: GoogleApiClient
     override fun onBackPressed() {
+        val myFragment= fragmentManager.findFragmentByTag(DashboardFragment.DashboardFragment) as? DashboardFragment
+        if (myFragment != null && myFragment!!.isVisible()) {
+            super.onBackPressed()
+        }else{
+           replaceFragmentInActivity(DashboardFragment.newInstance,R.id.dashboardItemsRecycler,DashboardFragment.DashboardFragment,true)
+        }
 
-
-        super.onBackPressed()
     }
 
     // Firebase instance variables
@@ -127,6 +135,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(),GoogleApiClient.OnConne
         writeNewUser(Latitude!!.toString(), Longitude!!.toString())
 
     }
+
 
 
 }

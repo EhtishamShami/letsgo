@@ -6,6 +6,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.shami.daniyalproject.R
 import com.shami.daniyalproject.activities.mainactivity.MainActivity
@@ -27,6 +29,7 @@ class ContactParents :BaseFragment<LayoutCurrentStatusBinding>()
 
     lateinit var mViewModel:ContactParentsViewModel
 
+    var mList=ArrayList<User>()
 
     override fun init(view: View, savedInstanceState: Bundle?) {
 
@@ -44,6 +47,7 @@ class ContactParents :BaseFragment<LayoutCurrentStatusBinding>()
         val userAdded=object:Observer<User>{
             override fun onChanged(t: User?) {
                 t?.let {
+                    mList.add(it)
                     mAdapter.addItem(it)
                 }
             }
@@ -85,8 +89,36 @@ class ContactParents :BaseFragment<LayoutCurrentStatusBinding>()
         viewDataBinding.parentList.adapter=mAdapter
 
 
+        sortItems()
+
     }
 
+
+
+    fun sortItems(){
+
+     viewDataBinding.searachET.addTextChangedListener(object:TextWatcher{
+         override fun afterTextChanged(s: Editable?) {
+         }
+
+         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+         }
+
+         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+             var mSortedListed=ArrayList<User>()
+             mList.map {
+                 if(it.firstName.contains(s.toString(),true)){
+                     mSortedListed.add(it)
+                 }
+             }
+             mAdapter.search(mSortedListed)
+
+         }
+     })
+
+
+    }
 
     override fun setLayout(): Int {
         return R.layout.layout_current_status

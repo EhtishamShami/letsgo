@@ -18,14 +18,14 @@ import com.shami.daniyalproject.utils.applySchedulersKotlin
 import io.reactivex.disposables.Disposable
 import okhttp3.*
 import org.json.JSONObject
+import java.io.BufferedReader
 import java.io.File
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-
-
-
-
 
 
 /**
@@ -70,8 +70,7 @@ class ReconizeFragmentViewModel(application: Application): AndroidViewModel(appl
         return isLoading
     }
 
-    fun uploadImage( file: File)
-    {
+    fun uploadImage( file: File) {
         val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
 
         val multipartBody = MultipartBody.Part.createFormData("file", file.name,requestFile )
@@ -115,13 +114,45 @@ class ReconizeFragmentViewModel(application: Application): AndroidViewModel(appl
     }
 
 
-    fun sendSms(number:String,fristName:String)
-    {
-        disposable=  mSendSmsService.sendSms("923325603050","2387","Masking",number,fristName+" has been picked up")
-                .compose(applySchedulersKotlin())
-                .subscribe()
+    fun sendSms(number:String,fristName:String) {
+
+        try {
+//            disposable=  mSendSmsService.sendSms("923325603050","2387","Masking",number,fristName+" has been picked up")
+//                    .compose(applySchedulersKotlin())
+//                    .subscribe()
+
+            GetUrlContentTask().execute(number,fristName)
+
+        }catch (ex:Exception) {
+
+        }
 
     }
+
+
+    private inner class GetUrlContentTask : AsyncTask<String, Int, String>() {
+        override fun doInBackground(vararg urls: String): String {
+            val url = URL("http://sendpk.com/api/sms.php?username=923325603050&password=2387&sender=Masking &mobile=+"+urls[0]+"&message=Your Kid "+urls[1]+" has been picked up")
+
+            val connection = url.openConnection() as HttpURLConnection
+            connection.setRequestMethod("GET")
+            connection.setDoOutput(true)
+            connection.setConnectTimeout(5000)
+            connection.setReadTimeout(5000)
+            connection.connect()
+            val rd = BufferedReader(InputStreamReader(connection.getInputStream()))
+            var content = ""
+            var line: String
+            return content
+        }
+
+        override fun onPostExecute(result: String) {
+            // this is executed on the main thread after the process is over
+            // update your UI here
+        }
+    }
+
+
 
 
    fun sendNotification(userID:String,fristName:String){

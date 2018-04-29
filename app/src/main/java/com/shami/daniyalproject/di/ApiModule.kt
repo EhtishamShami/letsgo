@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
+
 /**
  * Created by Shami on 3/23/2018.
  */
@@ -80,8 +81,7 @@ Header Initialization
 
     @Provides
     @Singleton
-    fun provideRetrofitBuilder(okHttpClient: OkHttpClient): Retrofit
-    {
+    fun provideRetrofitBuilder(okHttpClient: OkHttpClient): Retrofit {
         val builder = Retrofit.Builder()
                 .baseUrl(BuildConfig.baseURL)
                 .addConverterFactory(MoshiConverterFactory.create())

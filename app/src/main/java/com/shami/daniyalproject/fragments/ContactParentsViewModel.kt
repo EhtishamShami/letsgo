@@ -13,6 +13,7 @@ import com.shami.daniyalproject.utils.Constant
  * Created by Ehtisham shami on 3/27/2018.
  */
 
+
 class ContactParentsViewModel(application: Application): AndroidViewModel(application) {
 
     private lateinit var mFirebaseDatabase: FirebaseDatabase
@@ -22,7 +23,6 @@ class ContactParentsViewModel(application: Application): AndroidViewModel(applic
     private lateinit var mChildeEventListener: ChildEventListener
 
     val user= MutableLiveData<User>()
-
 
     init {
 

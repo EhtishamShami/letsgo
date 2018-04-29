@@ -11,11 +11,11 @@ import android.support.v7.app.AppCompatActivity
  * Created by Shami on 3/10/2018.
  */
 
-fun AppCompatActivity.replaceFragmentInActivity(fragment: Fragment, frameId: Int,isAddToBackStack:Boolean) {
+fun AppCompatActivity.replaceFragmentInActivity(fragment: Fragment, frameId: Int,fragmentTag:String,isAddToBackStack:Boolean) {
     supportFragmentManager.transact {
         if(isAddToBackStack)
         { addToBackStack(null) }
-        replace(frameId, fragment)
+        replace(frameId, fragment,fragmentTag)
     }
 }
 

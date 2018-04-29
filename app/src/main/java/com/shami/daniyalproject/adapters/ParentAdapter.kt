@@ -74,6 +74,11 @@ class ParentAdapter(var mList:ArrayList<User>,var mClickListener:callButton) :Re
     }
 
 
+    public fun search(newList:ArrayList<User>){
+        mList=newList
+        notifyDataSetChanged()
+    }
+
     interface callButton {
 
         fun callParnet(user: User)
