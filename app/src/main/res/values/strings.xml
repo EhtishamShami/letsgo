@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LetsGo</string>
+    <string name="app_name">Attendence Eye</string>
     <string name="loading">Loading</string>
     <string name="notification_add_to_cart_button">Like</string>
     <string name="group_name">Group 1</string>

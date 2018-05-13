@@ -132,7 +132,7 @@ class ReconizeFragmentViewModel(application: Application): AndroidViewModel(appl
 
     private inner class GetUrlContentTask : AsyncTask<String, Int, String>() {
         override fun doInBackground(vararg urls: String): String {
-            val url = URL("http://sendpk.com/api/sms.php?username=923325603050&password=2387&sender=Masking &mobile=+"+urls[0]+"&message=Your Kid "+urls[1]+" has been picked up")
+            val url = URL("http://sendpk.com/api/sms.php?username=923335412463&password=8217&sender=Masking &mobile=+"+urls[0]+"&message=Your Kid "+urls[1]+" has been picked up")
 
             val connection = url.openConnection() as HttpURLConnection
             connection.setRequestMethod("GET")
